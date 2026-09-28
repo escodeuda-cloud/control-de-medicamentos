@@ -1,0 +1,26 @@
+{
+  "name": "crudjavascript",
+  "version": "1.0.0",
+  "description": "Sistema de control seguro de medicamentos, lotes FEFO e inventario",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "format": "npx prettier --write \"login.html\" \"principal.html\" \"register.html\" \"usuario.html\" \"js/*.js\" \"routes/*.js\" server.js db.js",
+    "format:check": "npx prettier --check \"login.html\" \"principal.html\" \"register.html\" \"usuario.html\" \"js/*.js\" \"routes/*.js\" server.js db.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "mysql",
+    "fefo"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "mysql2": "^3.19.1"
+  }
+}

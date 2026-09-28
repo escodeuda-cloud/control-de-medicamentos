@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#004883",
+                    "surface-variant": "#e1e3e4",
+                    "primary-container": "#004884",
+                    "primary-fixed": "#d4e3ff",
+                    "surface-bright": "#f8f9fa",
+                    "on-primary": "#ffffff",
+                    "on-primary-container": "#88b8fb",
+                    "inverse-primary": "#a4c9ff",
+                    "on-tertiary-container": "#32c3f5",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f3f4f5",
+                    "on-tertiary-fixed-variant": "#004d64",
+                    "outline-variant": "#c2c6d1",
+                    "secondary-container": "#80f98b",
+                    "tertiary-container": "#004d64",
+                    "primary": "#00315e",
+                    "inverse-on-surface": "#f0f1f2",
+                    "tertiary": "#003546",
+                    "on-secondary-fixed-variant": "#00531a",
+                    "background": "#f8f9fa",
+                    "surface-container": "#edeeef",
+                    "on-tertiary-fixed": "#001f2a",
+                    "outline": "#727781",
+                    "secondary-fixed-dim": "#66df75",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#d9dadb",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed": "#83fc8e",
+                    "on-error": "#ffffff",
+                    "inverse-surface": "#2e3132",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#a4c9ff",
+                    "on-surface-variant": "#424750",
+                    "on-secondary-container": "#007327",
+                    "secondary": "#006e25",
+                    "on-surface": "#191c1d",
+                    "on-secondary-fixed": "#002106",
+                    "on-background": "#191c1d",
+                    "tertiary-fixed": "#bde9ff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e7e8e9",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-primary-fixed": "#001c39",
+                    "surface": "#f8f9fa",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed-dim": "#68d3ff",
+                    "surface-tint": "#2a609d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Public Sans"],
+                    "display": ["Public Sans"],
+                    "body": ["Public Sans"],
+                    "label": ["Inter"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Public Sans', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-24 md:pb-0 md:pl-72">
+<!-- NavigationDrawer (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col p-4 bg-white dark:bg-slate-900 h-full w-72 rounded-r-2xl shadow-2xl shadow-blue-900/10 z-50 hidden md:flex">
+<div class="flex items-center gap-4 mb-10 px-4">
+<div class="w-12 h-12 bg-primary-fixed rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-2xl">medical_services</span>
+</div>
+<div>
+<h3 class="text-sm font-bold text-[#00315e] dark:text-blue-400 font-['Public_Sans'] user-name-display">Dr. Ministerio</h3>
+<p class="text-xs text-slate-500 font-medium">ID: 99482-A</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="text-slate-600 dark:text-slate-400 px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="font-['Public_Sans'] text-sm font-medium">Verificación</span>
+</a>
+<a class="text-slate-600 dark:text-slate-400 px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">warning</span>
+<span class="font-['Public_Sans'] text-sm font-medium">Alertas</span>
+</a>
+<a class="bg-blue-50 dark:bg-blue-900/40 text-[#00315e] dark:text-blue-200 font-bold px-4 py-3 rounded-lg flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">package_2</span>
+<span class="font-['Public_Sans'] text-sm font-medium">Lotes</span>
+</a>
+<a class="text-slate-600 dark:text-slate-400 px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-['Public_Sans'] text-sm font-medium">Configuración</span>
+</a>
+</nav>
+</aside>
+<!-- TopAppBar (Shared Component) -->
+<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl docked full-width top-0 sticky z-40 shadow-none">
+<div class="flex items-center justify-between px-6 py-4 w-full max-w-none">
+<div class="flex items-center gap-4">
+<span class="text-lg font-black text-[#00315e] dark:text-blue-100 uppercase tracking-widest font-['Public_Sans']">Portal de Salud</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center gap-6">
+<span class="text-[#00315e] dark:text-blue-400 font-bold text-sm font-medium">Medicinas</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 hover:bg-[#f3f4f5] rounded-full transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-600">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-slate-200 overflow-hidden">
+<img alt="Perfil" class="w-full h-full object-cover" data-alt="professional medical doctor headshot in clinical white coat with neutral background and soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaG5eqH-LzYZx5EAkX55Ha5BDf0-YU95Upg5Ih16Bnm57n7i17ZXobQVDAcxyT0qs-IgbeIckhd8TW-vfbc_0CR7Fo923f4_uQ_QheO92divsJjXLdBKkK702l6r6_rNfwJHjok6PuSKQIey10rbZQt2Qv1B9vrtUFmFkCBPLxuazPyjrdWM-fFZBe5daG3GA0yS1tNupHxHKWnBeydJCM5hz3Q0TpnZGgwpoc3OqZyKsGKlPlv6hDlov9X2gLANjwqSUxL9GSxHA"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="p-6 md:p-10 max-w-7xl mx-auto">
+<!-- Editorial Header Section -->
+<section class="mb-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="max-w-2xl">
+<span class="text-secondary font-bold tracking-widest uppercase text-xs mb-2 block">Control Institucional</span>
+<h1 class="text-[3.5rem] font-black leading-tight text-primary tracking-tight font-headline">Trazabilidad de Lotes</h1>
+<p class="text-lg text-on-surface-variant mt-4 font-light leading-relaxed">Monitoreo en tiempo real de la cadena de suministro nacional. Gestión de integridad, vencimientos y flujo logístico.</p>
+</div>
+<div class="flex gap-3">
+<button class="bg-primary text-on-primary px-6 py-3 rounded-xl font-bold flex items-center gap-2 shadow-lg shadow-primary/10 hover:brightness-110 transition-all active:scale-95">
+<span class="material-symbols-outlined">add_circle</span>
+                        Nuevo Lote
+                    </button>
+<button class="bg-surface-container-low text-primary px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined">filter_list</span>
+                        Filtros Avanzados
+                    </button>
+</div>
+</div>
+</section>
+<!-- Main Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Bento Stats Cards -->
+<div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 bg-surface-container-lowest p-8 rounded-xl flex flex-col justify-between group overflow-hidden relative border border-outline-variant/15">
+<div class="z-10">
+<span class="text-on-surface-variant font-medium text-sm">Producción Total Anual</span>
+<div class="text-5xl font-black text-primary mt-2">1.2M <span class="text-xl font-normal text-on-surface-variant">unidades</span></div>
+</div>
+<div class="mt-8 flex items-center gap-4 z-10">
+<div class="flex items-center gap-1 text-secondary font-bold">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>+12%</span>
+</div>
+<span class="text-xs text-on-surface-variant">vs. periodo anterior</span>
+</div>
+<div class="absolute -right-10 -bottom-10 opacity-5 group-hover:scale-110 transition-transform duration-700">
+<span class="material-symbols-outlined text-[12rem]">package_2</span>
+</div>
+</div>
+<div class="bg-primary text-on-primary p-8 rounded-xl flex flex-col justify-between shadow-xl shadow-primary/20">
+<span class="font-medium text-sm opacity-80 text-on-primary-container">Lotes en Riesgo</span>
+<div class="text-5xl font-black mt-2">04</div>
+<div class="mt-8 bg-white/10 p-3 rounded-lg backdrop-blur-md">
+<p class="text-xs leading-snug">Vencimiento próximo en menos de 15 días. Requiere atención inmediata.</p>
+</div>
+</div>
+</div>
+<!-- Focus Card: Detailed Traceability Timeline -->
+<div class="lg:col-span-4 lg:row-span-2 bg-surface-container-lowest p-8 rounded-xl border border-outline-variant/15 flex flex-col">
+<h3 class="text-xl font-black text-primary mb-8 font-headline">Línea de Trazabilidad</h3>
+<div class="relative flex-grow">
+<div class="absolute left-[11px] top-2 bottom-0 w-[2px] bg-surface-container-high"></div>
+<div class="space-y-10 relative">
+<!-- Step 1 -->
+<div class="flex gap-6 relative">
+<div class="w-6 h-6 rounded-full bg-secondary ring-4 ring-secondary-container/30 flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined text-[14px] text-white" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-primary">Fabricación Finalizada</h4>
+<p class="text-xs text-on-surface-variant mt-1">Laboratorios Nacionales S.A.</p>
+<p class="text-[10px] text-outline mt-1 uppercase font-bold">12 OCT 2023 • 08:30 AM</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex gap-6 relative">
+<div class="w-6 h-6 rounded-full bg-secondary ring-4 ring-secondary-container/30 flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined text-[14px] text-white" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-primary">Control de Calidad</h4>
+<p class="text-xs text-on-surface-variant mt-1">Estado: <span class="text-secondary font-bold">Aprobado</span></p>
+<p class="text-[10px] text-outline mt-1 uppercase font-bold">14 OCT 2023 • 14:15 PM</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex gap-6 relative">
+<div class="w-6 h-6 rounded-full bg-primary ring-4 ring-primary-fixed/30 flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined text-[14px] text-white" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-primary">En Distribución</h4>
+<p class="text-xs text-on-surface-variant mt-1">Ruta: Logística Centro-Sur</p>
+<p class="text-[10px] text-primary mt-1 uppercase font-black">EN TRÁNSITO</p>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="flex gap-6 relative opacity-30">
+<div class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">location_on</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-on-surface">Entrega en Destino</h4>
+<p class="text-xs text-on-surface-variant mt-1">Hospital Regional N°4</p>
+<p class="text-[10px] text-outline mt-1 uppercase font-bold">PENDIENTE</p>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-12 p-4 bg-surface-container-low rounded-lg border border-outline-variant/10">
+<div class="flex justify-between items-center mb-2">
+<span class="text-[10px] font-black text-primary uppercase tracking-widest">Geo-Localización</span>
+<span class="material-symbols-outlined text-primary text-sm">map</span>
+</div>
+<div class="h-24 bg-slate-200 rounded-md overflow-hidden grayscale contrast-125">
+<img alt="Mapa de ubicación" class="w-full h-full object-cover" data-location="Bogotá" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHEZuC92Kq_bxlYBDjm2AiJ_Uu05yxDjGbAyXsd0cdnvRg5pRB1uJTxmU0xz-IAa7rLeuV61uXTPabyghcp9WIisJh_my5Ptw0Ls9iSpzbFyDfxiADF6T_xJdirg5kW1LAv7tdCeUN5cUCC5aHT9kJOxxnZ0IMeZJdqOD12gftW48IbsACbb0XiAXjQoxu69PEcl8c3HcnUjvMpDWpFHogbMgMfhlFqq4cc-jNPoQ6X8HNeP0mVCc4Skl0loWQ8nCYdH7RKYtLqHs"/>
+</div>
+</div>
+</div>
+<!-- Lotes Grid / Table Alternative -->
+<div class="lg:col-span-8 space-y-4">
+<div class="flex items-center justify-between px-2 mb-2">
+<h2 class="font-black text-xl text-primary font-headline">Historial Reciente</h2>
+<span class="text-xs font-bold text-on-surface-variant">Mostrando 4 de 128 lotes</span>
+</div>
+<!-- Lote Card 1 -->
+<div class="bg-surface-container-lowest hover:bg-white transition-all p-6 rounded-xl border border-outline-variant/15 flex flex-col md:flex-row md:items-center justify-between gap-6 group">
+<div class="flex items-center gap-5">
+<div class="w-14 h-14 bg-secondary-container/30 rounded-xl flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-3xl">vaccines</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="font-black text-lg text-primary tracking-tight">LT-2023-X99</h3>
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[10px] font-black rounded uppercase">Aprobado</span>
+</div>
+<p class="text-sm text-on-surface-variant">Insulina Humana Recombinante</p>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
+<div>
+<span class="block text-[10px] font-bold text-outline uppercase">Fabricación</span>
+<span class="text-sm font-bold text-on-surface">10/10/2023</span>
+</div>
+<div>
+<span class="block text-[10px] font-bold text-outline uppercase">Vencimiento</span>
+<span class="text-sm font-bold text-on-surface">10/10/2025</span>
+</div>
+<div class="hidden md:block">
+<span class="block text-[10px] font-bold text-outline uppercase">Unidades</span>
+<span class="text-sm font-bold text-on-surface">50,000 u.</span>
+</div>
+</div>
+<button class="p-3 rounded-full hover:bg-surface-container-low transition-colors text-primary active:scale-90">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<!-- Lote Card 2 (Bloqueado) -->
+<div class="bg-surface-container-lowest hover:bg-white transition-all p-6 rounded-xl border border-outline-variant/15 flex flex-col md:flex-row md:items-center justify-between gap-6 group">
+<div class="flex items-center gap-5">
+<div class="w-14 h-14 bg-error-container/30 rounded-xl flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-3xl">medication</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="font-black text-lg text-primary tracking-tight">LT-2023-B42</h3>
+<span class="px-2 py-0.5 bg-error-container text-on-error-container text-[10px] font-black rounded uppercase">Bloqueado</span>
+</div>
+<p class="text-sm text-on-surface-variant">Amoxicilina 500mg (Suspensión)</p>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
+<div>
+<span class="block text-[10px] font-bold text-outline uppercase">Fabricación</span>
+<span class="text-sm font-bold text-on-surface">02/10/2023</span>
+</div>
+<div>
+<span class="block text-[10px] font-bold text-outline uppercase">Vencimiento</span>
+<span class="text-sm font-bold text-error">EXPIRO</span>
+</div>
+<div class="hidden md:block">
+<span class="block text-[10px] font-bold text-outline uppercase">Unidades</span>
+<span class="text-sm font-bold text-on-surface">12,500 u.</span>
+</div>
+</div>
+<button class="p-3 rounded-full hover:bg-surface-container-low transition-colors text-primary active:scale-90">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<!-- Lote Card 3 (En Verificación) -->
+<div class="bg-surface-container-lowest hover:bg-white transition-all p-6 rounded-xl border border-outline-variant/15 flex flex-col md:flex-row md:items-center justify-between gap-6 group">
+<div class="flex items-center gap-5">
+<div class="w-14 h-14 bg-primary-fixed/30 rounded-xl flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">biotech</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="font-black text-lg text-primary tracking-tight">LT-2023-V01</h3>
+<span class="px-2 py-0.5 bg-primary-fixed text-on-primary-fixed-variant text-[10px] font-black rounded uppercase">En Verificación</span>
+</div>
+<p class="text-sm text-on-surface-variant">Paracetamol 500mg (Tabletas)</p>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
+<div>
+<span class="block text-[10px] font-bold text-outline uppercase">Fabricación</span>
+<span class="text-sm font-bold text-on-surface">15/10/2023</span>
+</div>
+<div>
+<span class="block text-[10px] font-bold text-outline uppercase">Vencimiento</span>
+<span class="text-sm font-bold text-on-surface">15/10/2026</span>
+</div>
+<div class="hidden md:block">
+<span class="block text-[10px] font-bold text-outline uppercase">Unidades</span>
+<span class="text-sm font-bold text-on-surface">100,000 u.</span>
+</div>
+</div>
+<button class="p-3 rounded-full hover:bg-surface-container-low transition-colors text-primary active:scale-90">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<!-- Lote Card 4 -->
+<div class="bg-surface-container-lowest hover:bg-white transition-all p-6 rounded-xl border border-outline-variant/15 flex flex-col md:flex-row md:items-center justify-between gap-6 group">
+<div class="flex items-center gap-5">
+<div class="w-14 h-14 bg-secondary-container/30 rounded-xl flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-3xl">inventory_2</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="font-black text-lg text-primary tracking-tight">LT-2023-A22</h3>
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[10px] font-black rounded uppercase">Aprobado</span>
+</div>
+<p class="text-sm text-on-surface-variant">Solución Salina 0.9%</p>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
+<div>
+<span class="block text-[10px] font-bold text-outline uppercase">Fabricación</span>
+<span class="text-sm font-bold text-on-surface">20/09/2023</span>
+</div>
+<div>
+<span class="block text-[10px] font-bold text-outline uppercase">Vencimiento</span>
+<span class="text-sm font-bold text-on-surface">20/09/2025</span>
+</div>
+<div class="hidden md:block">
+<span class="block text-[10px] font-bold text-outline uppercase">Unidades</span>
+<span class="text-sm font-bold text-on-surface">250,000 u.</span>
+</div>
+</div>
+<button class="p-3 rounded-full hover:bg-surface-container-low transition-colors text-primary active:scale-90">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Shared Component) - Mobile Only -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-[#f8f9fa] dark:bg-slate-950 z-50 rounded-t-lg shadow-[0_-4px_24px_rgba(0,0,0,0.04)]">
+<a class="flex flex-col items-center justify-center text-[#00315e] dark:text-blue-200 bg-blue-50 dark:bg-blue-900/30 rounded-xl px-3 py-1" href="#">
+<span class="material-symbols-outlined">medication</span>
+<span class="font-['Public_Sans'] text-[11px] font-bold uppercase tracking-tighter mt-1">Medicinas</span>
+</a>
+</nav>
+</body></html>

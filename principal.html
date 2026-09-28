@@ -1,0 +1,1354 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel | Medicamentos Seguros</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Public+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navy: #00315e;
+        --blue: #004884;
+        --green: #006e25;
+        --bg: #f8f9fa;
+        --line: #dfe3e8;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: #191c1d;
+        font-family: Inter, sans-serif;
+      }
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+        vertical-align: middle;
+      }
+      .sidebar {
+        width: 260px;
+        background: #00315e;
+        color: #fff;
+        position: fixed;
+        inset: 0 auto 0 0;
+        z-index: 20;
+        padding: 24px 16px;
+      }
+      .content {
+        margin-left: 260px;
+        min-height: 100vh;
+      }
+      .nav-button {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #dbeafe;
+        border: 0;
+        background: transparent;
+        border-radius: 10px;
+        padding: 12px 14px;
+        margin: 4px 0;
+        text-align: left;
+        cursor: pointer;
+      }
+      .nav-button:hover,
+      .nav-button.active {
+        background: rgba(255, 255, 255, 0.14);
+        color: #fff;
+      }
+      .card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        box-shadow: 0 8px 28px rgba(0, 49, 94, 0.06);
+      }
+      .table-wrap {
+        overflow: auto;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 680px;
+      }
+      th {
+        background: #f1f5f9;
+        color: #475569;
+        text-align: left;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        padding: 13px 15px;
+      }
+      td {
+        border-top: 1px solid #edf0f2;
+        padding: 13px 15px;
+        font-size: 14px;
+      }
+      tr:hover td {
+        background: #fafcff;
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        border: 1px solid #cbd5e1;
+        background: #fff;
+        border-radius: 9px;
+        padding: 11px 12px;
+        outline: none;
+      }
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: #2a609d;
+        box-shadow: 0 0 0 3px rgba(42, 96, 157, 0.12);
+      }
+      .btn {
+        border: 0;
+        border-radius: 9px;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .btn-primary {
+        background: var(--navy);
+        color: #fff;
+      }
+      .btn-primary:hover {
+        background: var(--blue);
+      }
+      .btn-danger {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+      .btn-danger:hover {
+        background: #fecaca;
+      }
+      .badge {
+        display: inline-flex;
+        padding: 5px 9px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        background: #dcfce7;
+        color: #166534;
+      }
+      .section {
+        display: none;
+      }
+      .section.active {
+        display: block;
+      }
+      #toast {
+        position: fixed;
+        right: 24px;
+        top: 24px;
+        z-index: 100;
+        display: none;
+        color: #fff;
+        padding: 13px 16px;
+        border-radius: 10px;
+        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+      }
+      @media (max-width: 800px) {
+        .sidebar {
+          width: 72px;
+          padding: 16px 8px;
+        }
+        .sidebar .brand-text,
+        .sidebar .nav-text,
+        .sidebar .user-box {
+          display: none;
+        }
+        .content {
+          margin-left: 72px;
+        }
+        .nav-button {
+          justify-content: center;
+          padding: 12px 5px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="flex items-center gap-3 mb-9 px-2">
+        <div
+          class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center"
+        >
+          <span class="material-symbols-outlined">health_and_safety</span>
+        </div>
+        <div class="brand-text">
+          <div class="font-extrabold">Medicamentos</div>
+          <div class="text-xs text-blue-200">Control seguro</div>
+        </div>
+      </div>
+      <div class="user-box bg-white/10 rounded-xl p-3 mb-6">
+        <div class="text-xs text-blue-200">Sesión iniciada</div>
+        <div id="sideUser" class="font-bold truncate">Usuario</div>
+      </div>
+      <nav>
+        <button class="nav-button active" data-section="dashboard">
+          <span class="material-symbols-outlined">dashboard</span
+          ><span class="nav-text">Resumen</span>
+        </button>
+        <button class="nav-button" data-section="medicamentos">
+          <span class="material-symbols-outlined">medication</span
+          ><span class="nav-text">Medicamentos</span>
+        </button>
+        <button class="nav-button" data-section="inventario">
+          <span class="material-symbols-outlined">inventory_2</span
+          ><span class="nav-text">Inventario</span>
+        </button>
+        <button class="nav-button" data-section="lotes">
+          <span class="material-symbols-outlined">qr_code_2</span
+          ><span class="nav-text">Lotes FEFO</span>
+        </button>
+        <button class="nav-button" data-section="reportes">
+          <span class="material-symbols-outlined">description</span
+          ><span class="nav-text">Reportes</span>
+        </button>
+        <button class="nav-button" data-section="alertas">
+          <span class="material-symbols-outlined">notifications</span
+          ><span class="nav-text">Alertas</span>
+        </button>
+        <button class="nav-button" data-section="usuarios">
+          <span class="material-symbols-outlined">group</span
+          ><span class="nav-text">Usuarios</span>
+        </button>
+      </nav>
+      <button id="logoutButton" class="nav-button mt-8">
+        <span class="material-symbols-outlined">logout</span
+        ><span class="nav-text">Cerrar sesión</span>
+      </button>
+    </aside>
+
+    <main class="content">
+      <header class="bg-white border-b border-slate-200 sticky top-0 z-10">
+        <div
+          class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between gap-4"
+        >
+          <div>
+            <p class="text-sm text-slate-500">Panel de control</p>
+            <h1 id="pageTitle" class="text-2xl font-extrabold text-[#00315e]">
+              Resumen general
+            </h1>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="hidden sm:block text-right">
+              <div class="text-xs text-slate-500">Usuario activo</div>
+              <div id="topUser" class="font-bold text-[#00315e]">Usuario</div>
+            </div>
+            <div
+              id="avatar"
+              class="w-10 h-10 rounded-full bg-[#d4e3ff] text-[#00315e] flex items-center justify-center font-extrabold"
+            >
+              U
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="max-w-7xl mx-auto p-6">
+        <section id="dashboard" class="section active">
+          <div
+            class="card p-6 bg-gradient-to-br from-[#00315e] to-[#004884] text-white mb-6"
+          >
+            <p class="text-blue-100 text-sm">Sistema de gestión farmacéutica</p>
+            <h2 class="text-3xl font-extrabold mt-2">
+              Medicamentos seguros, datos confiables.
+            </h2>
+            <p class="text-blue-100 mt-2 max-w-2xl">
+              Consulta medicamentos, controla existencias, registra ubicaciones
+              y revisa alertas almacenadas en la base de datos.
+            </p>
+          </div>
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6"
+          >
+            <div class="card p-5">
+              <div class="text-slate-500 text-sm">Medicamentos</div>
+              <div
+                id="countMedicamentos"
+                class="text-3xl font-extrabold text-[#00315e] mt-2"
+              >
+                0
+              </div>
+            </div>
+            <div class="card p-5">
+              <div class="text-slate-500 text-sm">Registros de inventario</div>
+              <div
+                id="countInventario"
+                class="text-3xl font-extrabold text-[#00315e] mt-2"
+              >
+                0
+              </div>
+            </div>
+            <div class="card p-5">
+              <div class="text-slate-500 text-sm">Alertas</div>
+              <div
+                id="countAlertas"
+                class="text-3xl font-extrabold text-[#00315e] mt-2"
+              >
+                0
+              </div>
+            </div>
+            <div class="card p-5">
+              <div class="text-slate-500 text-sm">Usuarios</div>
+              <div
+                id="countUsuarios"
+                class="text-3xl font-extrabold text-[#00315e] mt-2"
+              >
+                0
+              </div>
+            </div>
+          </div>
+          <div class="card p-6">
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-xl font-extrabold text-[#00315e]">
+                Últimos medicamentos
+              </h2>
+              <button
+                class="btn btn-primary"
+                onclick="showSection('medicamentos')"
+              >
+                Ver medicamentos
+              </button>
+            </div>
+            <div
+              id="dashboardMedicamentos"
+              class="divide-y divide-slate-100"
+            ></div>
+          </div>
+        </section>
+
+        <section id="medicamentos" class="section">
+          <div class="flex flex-wrap justify-between items-center gap-3 mb-5">
+            <div>
+              <h2 class="text-2xl font-extrabold text-[#00315e]">
+                Medicamentos
+              </h2>
+              <p class="text-slate-500">
+                Registra y administra los productos farmacéuticos.
+              </p>
+            </div>
+          </div>
+          <div class="card p-5 mb-6">
+            <h3 class="font-extrabold text-[#00315e] mb-4">
+              Agregar medicamento
+            </h3>
+            <form
+              id="medicamentoForm"
+              class="grid grid-cols-1 md:grid-cols-3 gap-4"
+            >
+              <div>
+                <label class="text-sm font-semibold">Nombre</label
+                ><input
+                  id="medNombre"
+                  required
+                  placeholder="Ej. Acetaminofén"
+                />
+              </div>
+              <div>
+                <label class="text-sm font-semibold">Descripción</label
+                ><textarea
+                  id="medDescripcion"
+                  rows="1"
+                  placeholder="Uso o descripción"
+                ></textarea>
+              </div>
+              <div class="flex items-end">
+                <button
+                  class="btn btn-primary w-full justify-center"
+                  type="submit"
+                >
+                  <span class="material-symbols-outlined">add</span>Guardar
+                  medicamento
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="card p-5">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Usuario responsable</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="medicamentosTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="inventario" class="section">
+          <div class="mb-5">
+            <h2 class="text-2xl font-extrabold text-[#00315e]">Inventario</h2>
+            <p class="text-slate-500">
+              Registra cantidades y ubicaciones físicas.
+            </p>
+          </div>
+          <div class="card p-5 mb-6">
+            <h3 class="font-extrabold text-[#00315e] mb-4">
+              Agregar registro de inventario
+            </h3>
+            <form
+              id="inventarioForm"
+              class="grid grid-cols-1 md:grid-cols-3 gap-4"
+            >
+              <div>
+                <label class="text-sm font-semibold">Cantidad</label
+                ><input
+                  id="invCantidad"
+                  type="number"
+                  min="0"
+                  required
+                  placeholder="0"
+                />
+              </div>
+              <div>
+                <label class="text-sm font-semibold">Ubicación</label
+                ><input
+                  id="invUbicacion"
+                  required
+                  placeholder="Ej. Estante A"
+                />
+              </div>
+              <div class="flex items-end">
+                <button
+                  class="btn btn-primary w-full justify-center"
+                  type="submit"
+                >
+                  <span class="material-symbols-outlined">add</span>Guardar
+                  inventario
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="card p-5">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Usuario responsable</th>
+                    <th>Cantidad</th>
+                    <th>Ubicación</th>
+                  </tr>
+                </thead>
+                <tbody id="inventarioTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="lotes" class="section">
+          <div class="mb-5">
+            <h2 class="text-2xl font-extrabold text-[#00315e]">
+              Lotes e inventario FEFO
+            </h2>
+            <p class="text-slate-500">
+              Registra entradas físicas y prioriza el lote con fecha de
+              caducidad más próxima.
+            </p>
+          </div>
+          <div class="card p-5 mb-6">
+            <h3 id="loteFormTitle" class="font-extrabold text-[#00315e] mb-4">
+              Registrar entrada de lote
+            </h3>
+            <form id="loteForm" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div>
+                <label class="text-sm font-semibold">Medicamento</label
+                ><select id="loteMedicamento" required></select>
+              </div>
+              <div>
+                <label class="text-sm font-semibold">Número de lote</label
+                ><input
+                  id="loteNumero"
+                  required
+                  placeholder="Ej. LOT-2026-001"
+                />
+              </div>
+              <div>
+                <label class="text-sm font-semibold">Cantidad</label
+                ><input id="loteCantidad" type="number" min="1" required />
+              </div>
+              <div>
+                <label class="text-sm font-semibold">Ubicación</label
+                ><input id="loteUbicacion" placeholder="Estante A" />
+              </div>
+              <div>
+                <label class="text-sm font-semibold">Fecha de ingreso</label
+                ><input id="loteIngreso" type="date" required />
+              </div>
+              <div>
+                <label class="text-sm font-semibold">Fecha de caducidad</label
+                ><input id="loteCaducidad" type="date" required />
+              </div>
+              <div class="md:col-span-2 flex items-end">
+                <button
+                  id="loteSubmitButton"
+                  class="btn btn-primary w-full justify-center"
+                  type="submit"
+                >
+                  <span class="material-symbols-outlined">add_box</span
+                  >Registrar entrada física</button
+                ><button
+                  id="loteCancelButton"
+                  class="btn w-full justify-center hidden"
+                  type="button"
+                >
+                  Cancelar edición
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="card p-5">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-extrabold text-[#00315e]">
+                Prioridad de salida FEFO
+              </h3>
+              <span class="badge">Primero vence, primero sale</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Prioridad</th>
+                    <th>Medicamento</th>
+                    <th>Lote</th>
+                    <th>Disponible</th>
+                    <th>Caducidad</th>
+                    <th>Ubicación</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="lotesTable"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card p-5 mt-6">
+            <div class="flex flex-wrap items-end justify-between gap-4 mb-4">
+              <div>
+                <h3 class="font-extrabold text-[#00315e]">
+                  Búsqueda rápida de lotes
+                </h3>
+                <p class="text-slate-500 text-sm">
+                  Busca por código de lote o nombre y filtra por vencimiento
+                  próximo.
+                </p>
+              </div>
+              <form
+                id="busquedaLotesForm"
+                class="flex flex-wrap items-end gap-3"
+              >
+                <div>
+                  <label class="text-sm font-semibold"
+                    >Código o medicamento</label
+                  ><input
+                    id="busquedaLotesTexto"
+                    placeholder="Ej. LOT-2026 o Acetaminofén"
+                  />
+                </div>
+                <div>
+                  <label class="text-sm font-semibold">Próximos días</label
+                  ><select id="busquedaLotesDias">
+                    <option value="30">30 días</option>
+                    <option value="60">60 días</option>
+                    <option value="90" selected>90 días</option>
+                  </select>
+                </div>
+                <button class="btn btn-primary" type="submit">
+                  <span class="material-symbols-outlined">search</span>Buscar
+                </button>
+              </form>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Medicamento</th>
+                    <th>Lote</th>
+                    <th>Disponible</th>
+                    <th>Caducidad</th>
+                    <th>Ubicación</th>
+                  </tr>
+                </thead>
+                <tbody id="busquedaLotesTable">
+                  <tr>
+                    <td colspan="5" class="text-center text-slate-500">
+                      Usa el buscador para consultar lotes.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="reportes" class="section">
+          <div class="mb-5">
+            <h2 class="text-2xl font-extrabold text-[#00315e]">
+              Reporte de rotación FEFO
+            </h2>
+            <p class="text-slate-500">
+              Informe consolidado con inventario crítico y productos caducados
+              listos para descarte.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+            <div class="flex items-center gap-3">
+              <label class="text-sm font-semibold"
+                >Límite de inventario crítico</label
+              ><input
+                id="reporteLimiteCritico"
+                type="number"
+                min="0"
+                value="10"
+                class="!w-28"
+              />
+            </div>
+            <button
+              id="actualizarReporteButton"
+              class="btn btn-primary"
+              type="button"
+            >
+              <span class="material-symbols-outlined">refresh</span>Actualizar
+              reporte
+            </button>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="card p-5">
+              <div class="text-slate-500 text-sm">Lotes FEFO</div>
+              <div
+                id="reporteTotalFefo"
+                class="text-3xl font-extrabold text-[#00315e] mt-2"
+              >
+                0
+              </div>
+            </div>
+            <div class="card p-5">
+              <div class="text-slate-500 text-sm">Inventario crítico</div>
+              <div
+                id="reporteTotalCriticos"
+                class="text-3xl font-extrabold text-[#00315e] mt-2"
+              >
+                0
+              </div>
+            </div>
+            <div class="card p-5">
+              <div class="text-slate-500 text-sm">Caducados para descarte</div>
+              <div
+                id="reporteTotalCaducados"
+                class="text-3xl font-extrabold text-[#991b1b] mt-2"
+              >
+                0
+              </div>
+            </div>
+          </div>
+          <div class="card p-5 mb-6">
+            <h3 class="font-extrabold text-[#00315e] mb-4">
+              Inventario crítico
+            </h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Medicamento</th>
+                    <th>Lote</th>
+                    <th>Disponible</th>
+                    <th>Caducidad</th>
+                    <th>Ubicación</th>
+                  </tr>
+                </thead>
+                <tbody id="reporteCriticosTable"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card p-5">
+            <h3 class="font-extrabold text-[#991b1b] mb-4">
+              Productos caducados listos para descarte
+            </h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Medicamento</th>
+                    <th>Lote</th>
+                    <th>Disponible</th>
+                    <th>Caducidad</th>
+                    <th>Ubicación</th>
+                  </tr>
+                </thead>
+                <tbody id="reporteCaducadosTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="alertas" class="section">
+          <div class="mb-5">
+            <h2 class="text-2xl font-extrabold text-[#00315e]">Alertas</h2>
+            <p class="text-slate-500">
+              Consulta y registra recordatorios relacionados con el control
+              farmacéutico.
+            </p>
+          </div>
+          <div class="card p-5 mb-6">
+            <h3 class="font-extrabold text-[#00315e] mb-4">Nueva alerta</h3>
+            <form id="alertaForm" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label class="text-sm font-semibold">Tipo de alerta</label
+                ><input
+                  id="alertaTipo"
+                  required
+                  placeholder="Ej. Vencimiento"
+                />
+              </div>
+              <div>
+                <label class="text-sm font-semibold">Fecha y hora</label
+                ><input id="alertaFecha" type="datetime-local" />
+              </div>
+              <div class="flex items-end">
+                <button
+                  class="btn btn-primary w-full justify-center"
+                  type="submit"
+                >
+                  <span class="material-symbols-outlined">add_alert</span
+                  >Guardar alerta
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="card p-5">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Usuario</th>
+                    <th>Tipo</th>
+                    <th>Fecha</th>
+                  </tr>
+                </thead>
+                <tbody id="alertasTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="usuarios" class="section">
+          <div class="mb-5">
+            <h2 class="text-2xl font-extrabold text-[#00315e]">Usuarios</h2>
+            <p class="text-slate-500">
+              Administra los usuarios que pueden asociarse a medicamentos e
+              inventario.
+            </p>
+          </div>
+          <div class="card p-5 mb-6">
+            <h3 class="font-extrabold text-[#00315e] mb-4">
+              Registrar usuario
+            </h3>
+            <form
+              id="usuarioForm"
+              class="grid grid-cols-1 md:grid-cols-5 gap-4"
+            >
+              <div>
+                <label class="text-sm font-semibold" for="usrNombre"
+                  >Nombre</label
+                ><input
+                  id="usrNombre"
+                  required
+                  minlength="2"
+                  placeholder="Nombre completo"
+                />
+              </div>
+              <div>
+                <label class="text-sm font-semibold" for="usrEmail"
+                  >Correo</label
+                ><input
+                  id="usrEmail"
+                  type="email"
+                  required
+                  placeholder="correo@ejemplo.com"
+                />
+              </div>
+              <div>
+                <label class="text-sm font-semibold" for="usrPassword"
+                  >Contraseña</label
+                ><input
+                  id="usrPassword"
+                  type="password"
+                  required
+                  minlength="8"
+                  autocomplete="new-password"
+                  placeholder="Mínimo 8 caracteres"
+                />
+              </div>
+              <div>
+                <label class="text-sm font-semibold" for="usrRol">Rol</label
+                ><select id="usrRol">
+                  <option value="1">Administrador</option>
+                  <option value="2" selected>Cliente</option>
+                  <option value="3">Donante</option>
+                  <option value="4">Farmacéutico</option>
+                  <option value="5">Invitado</option>
+                </select>
+              </div>
+              <div class="flex items-end">
+                <button
+                  class="btn btn-primary w-full justify-center"
+                  type="submit"
+                >
+                  <span class="material-symbols-outlined">person_add</span
+                  >Guardar usuario
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="card p-5">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Rol</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="usuariosTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+    <div id="toast"></div>
+
+    <script>
+      const API = "/api";
+      let state = {
+        medicamentos: [],
+        inventario: [],
+        lotes: [],
+        alertas: [],
+        usuarios: [],
+        reporte: { fefo: [], criticos: [], caducados: [] },
+      };
+      let editingLoteId = null;
+      const currentUser = JSON.parse(localStorage.getItem("usuario") || "null");
+
+      function escapeHTML(value) {
+        return String(value ?? "").replace(
+          /[&<>'"]/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              "'": "&#39;",
+              '"': "&quot;",
+            })[c],
+        );
+      }
+      function currentUserId() {
+        return Number(currentUser?.id_usuario || currentUser?.id || 1);
+      }
+      function notify(message, type = "success") {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.style.display = "block";
+        toast.style.background = type === "error" ? "#991b1b" : "#166534";
+        clearTimeout(window.toastTimer);
+        window.toastTimer = setTimeout(
+          () => (toast.style.display = "none"),
+          3200,
+        );
+      }
+      function showSection(id) {
+        document
+          .querySelectorAll(".section")
+          .forEach((s) => s.classList.toggle("active", s.id === id));
+        document
+          .querySelectorAll(".nav-button[data-section]")
+          .forEach((b) =>
+            b.classList.toggle("active", b.dataset.section === id),
+          );
+        const titles = {
+          dashboard: "Resumen general",
+          medicamentos: "Medicamentos",
+          inventario: "Inventario",
+          lotes: "Lotes FEFO",
+          reportes: "Reportes",
+          alertas: "Alertas",
+          usuarios: "Usuarios",
+        };
+        document.getElementById("pageTitle").textContent =
+          titles[id] || "Panel";
+      }
+      async function request(url, options) {
+        const response = await fetch(API + url, options);
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok)
+          throw new Error(data.message || "No se pudo completar la operación");
+        return data;
+      }
+      function userName(id) {
+        const u = state.usuarios.find(
+          (item) => Number(item.id_usuario) === Number(id),
+        );
+        return u ? u.nombre : `Usuario #${id}`;
+      }
+      function renderDashboard() {
+        document.getElementById("countMedicamentos").textContent =
+          state.medicamentos.length;
+        document.getElementById("countInventario").textContent =
+          state.inventario.length;
+        document.getElementById("countAlertas").textContent =
+          state.alertas.length;
+        document.getElementById("countUsuarios").textContent =
+          state.usuarios.length;
+        const box = document.getElementById("dashboardMedicamentos");
+        box.innerHTML =
+          state.medicamentos
+            .slice(-5)
+            .reverse()
+            .map(
+              (m) =>
+                `<div class="py-3 flex justify-between gap-4"><div><div class="font-bold">${escapeHTML(m.nombre)}</div><div class="text-sm text-slate-500">${escapeHTML(m.descripcion || "Sin descripción")}</div></div><span class="badge">Registrado</span></div>`,
+            )
+            .join("") ||
+          '<p class="text-slate-500 py-4">No hay medicamentos registrados.</p>';
+      }
+      function renderMedicamentos() {
+        document.getElementById("medicamentosTable").innerHTML =
+          state.medicamentos
+            .map(
+              (m) =>
+                `<tr><td>${m.id_medicamento}</td><td>${escapeHTML(userName(m.id_usuario))}</td><td class="font-bold">${escapeHTML(m.nombre)}</td><td>${escapeHTML(m.descripcion || "")}</td><td><button class="btn btn-danger" onclick="desactivarMedicamento(${m.id_medicamento})"><span class="material-symbols-outlined">block</span>Desactivar</button></td></tr>`,
+            )
+            .join("") ||
+          '<tr><td colspan="5" class="text-center text-slate-500">No hay registros.</td></tr>';
+      }
+      function renderLotes() {
+        const table = document.getElementById("lotesTable");
+        table.innerHTML =
+          state.lotes
+            .map(
+              (lote, index) =>
+                `<tr><td><span class="badge">${index + 1}</span></td><td class="font-bold">${escapeHTML(lote.medicamento_nombre)}</td><td>${escapeHTML(lote.numero_lote)}</td><td>${lote.cantidad_disponible}</td><td>${escapeHTML(lote.fecha_caducidad)}</td><td>${escapeHTML(lote.ubicacion || "")}</td><td><button class="btn btn-secondary" onclick="editarLote(${lote.id_lote})"><span class="material-symbols-outlined">edit</span>Editar</button> <button class="btn btn-danger" onclick="desactivarLote(${lote.id_lote})"><span class="material-symbols-outlined">block</span>Desactivar</button></td></tr>`,
+            )
+            .join("") ||
+          '<tr><td colspan="7" class="text-center text-slate-500">No hay lotes activos.</td></tr>';
+        const select = document.getElementById("loteMedicamento");
+        if (select)
+          select.innerHTML =
+            '<option value="">Selecciona un medicamento</option>' +
+            state.medicamentos
+              .map(
+                (m) =>
+                  `<option value="${m.id_medicamento}">${escapeHTML(m.nombre)}</option>`,
+              )
+              .join("");
+      }
+      function renderLoteSearch(rows) {
+        const table = document.getElementById("busquedaLotesTable");
+        if (!table) return;
+        table.innerHTML =
+          rows
+            .map(
+              (lote) =>
+                `<tr><td class="font-bold">${escapeHTML(lote.medicamento_nombre)}</td><td>${escapeHTML(lote.numero_lote)}</td><td>${lote.cantidad_disponible}</td><td>${escapeHTML(lote.fecha_caducidad)}</td><td>${escapeHTML(lote.ubicacion || "")}</td></tr>`,
+            )
+            .join("") ||
+          '<tr><td colspan="5" class="text-center text-slate-500">No se encontraron lotes en ese periodo.</td></tr>';
+      }
+      function renderReport() {
+        const report = state.reporte || {
+          fefo: [],
+          criticos: [],
+          caducados: [],
+        };
+        document.getElementById("reporteTotalFefo").textContent =
+          report.fefo.length;
+        document.getElementById("reporteTotalCriticos").textContent =
+          report.criticos.length;
+        document.getElementById("reporteTotalCaducados").textContent =
+          report.caducados.length;
+        const row = (lote) =>
+          `<tr><td class="font-bold">${escapeHTML(lote.medicamento_nombre)}</td><td>${escapeHTML(lote.numero_lote)}</td><td>${lote.cantidad_disponible}</td><td>${escapeHTML(lote.fecha_caducidad)}</td><td>${escapeHTML(lote.ubicacion || "")}</td></tr>`;
+        document.getElementById("reporteCriticosTable").innerHTML =
+          report.criticos.map(row).join("") ||
+          '<tr><td colspan="5" class="text-center text-slate-500">No hay inventario crítico.</td></tr>';
+        document.getElementById("reporteCaducadosTable").innerHTML =
+          report.caducados.map(row).join("") ||
+          '<tr><td colspan="5" class="text-center text-slate-500">No hay productos caducados.</td></tr>';
+      }
+      function renderInventario() {
+        document.getElementById("inventarioTable").innerHTML =
+          state.inventario
+            .map(
+              (i) =>
+                `<tr><td>${i.id_inventario}</td><td>${escapeHTML(userName(i.id_usuario))}</td><td class="font-bold">${i.cantidad ?? ""}</td><td>${escapeHTML(i.ubicacion || "")}</td></tr>`,
+            )
+            .join("") ||
+          '<tr><td colspan="4" class="text-center text-slate-500">No hay registros.</td></tr>';
+      }
+      function renderAlertas() {
+        document.getElementById("alertasTable").innerHTML =
+          state.alertas
+            .map(
+              (a) =>
+                `<tr><td>${a.id_alerta}</td><td>${escapeHTML(userName(a.id_usuario))}</td><td><span class="badge">${escapeHTML(a.tipo_alerta || "")}</span></td><td>${escapeHTML(a.fecha_alerta || "")}</td></tr>`,
+            )
+            .join("") ||
+          '<tr><td colspan="4" class="text-center text-slate-500">No hay alertas.</td></tr>';
+      }
+      function renderUsuarios() {
+        document.getElementById("usuariosTable").innerHTML =
+          state.usuarios
+            .map(
+              (u) =>
+                `<tr><td>${u.id_usuario}</td><td class="font-bold">${escapeHTML(u.nombre)}</td><td>${escapeHTML(u.email)}</td><td>${escapeHTML(u.nombre_rol || `Rol #${u.id_rol}`)}</td><td><button class="btn btn-danger" onclick="desactivarUsuario(${u.id_usuario})"><span class="material-symbols-outlined">block</span>Desactivar</button></td></tr>`,
+            )
+            .join("") ||
+          '<tr><td colspan="5" class="text-center text-slate-500">No hay usuarios.</td></tr>';
+      }
+      async function loadAll() {
+        const resources = [
+          ["medicamentos", "/medicamentos"],
+          ["inventario", "/inventario"],
+          ["lotes", "/lotes"],
+          ["alertas", "/alertas"],
+          ["usuarios", "/usuarios"],
+          ["reporte", "/lotes/reporte"],
+        ];
+        const results = await Promise.allSettled(
+          resources.map(([, url]) => request(url)),
+        );
+        const failed = [];
+        results.forEach((result, index) => {
+          const [name] = resources[index];
+          if (result.status === "fulfilled")
+            state[name] =
+              name === "reporte"
+                ? result.value
+                : Array.isArray(result.value)
+                  ? result.value
+                  : [];
+          else {
+            state[name] =
+              name === "reporte"
+                ? { fefo: [], criticos: [], caducados: [] }
+                : [];
+            failed.push(
+              `${name}: ${result.reason?.message || "error desconocido"}`,
+            );
+          }
+        });
+        renderDashboard();
+        renderMedicamentos();
+        renderInventario();
+        renderLotes();
+        renderAlertas();
+        renderUsuarios();
+        renderReport();
+        if (failed.length)
+          notify(`No se pudo cargar ${failed.join(" | ")}`, "error");
+      }
+      document
+        .getElementById("busquedaLotesForm")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
+          try {
+            const q = encodeURIComponent(
+              document.getElementById("busquedaLotesTexto").value.trim(),
+            );
+            const dias = document.getElementById("busquedaLotesDias").value;
+            renderLoteSearch(
+              await request(`/lotes/buscar?q=${q}&dias=${dias}`),
+            );
+          } catch (error) {
+            notify(error.message, "error");
+          }
+        });
+      document
+        .getElementById("actualizarReporteButton")
+        .addEventListener("click", async () => {
+          try {
+            const limite = Number(
+              document.getElementById("reporteLimiteCritico").value || 10,
+            );
+            state.reporte = await request(`/lotes/reporte?critico=${limite}`);
+            renderReport();
+            notify("Reporte actualizado");
+          } catch (error) {
+            notify(error.message, "error");
+          }
+        });
+      document
+        .querySelectorAll(".nav-button[data-section]")
+        .forEach((button) =>
+          button.addEventListener("click", () =>
+            showSection(button.dataset.section),
+          ),
+        );
+      document.getElementById("logoutButton").addEventListener("click", () => {
+        if (confirm("¿Deseas cerrar la sesión?")) {
+          localStorage.removeItem("usuario");
+          window.location.href = "login.html";
+        }
+      });
+      document
+        .getElementById("medicamentoForm")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
+          try {
+            await request("/medicamentos", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                id_usuario: currentUserId(),
+                nombre: document.getElementById("medNombre").value.trim(),
+                descripcion: document
+                  .getElementById("medDescripcion")
+                  .value.trim(),
+              }),
+            });
+            event.target.reset();
+            notify("Medicamento guardado en la base de datos");
+            await loadAll();
+          } catch (error) {
+            notify(error.message, "error");
+          }
+        });
+      document
+        .getElementById("inventarioForm")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
+          try {
+            await request("/inventario", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                id_usuario: currentUserId(),
+                cantidad: Number(document.getElementById("invCantidad").value),
+                ubicacion: document.getElementById("invUbicacion").value.trim(),
+              }),
+            });
+            event.target.reset();
+            notify("Registro de inventario guardado");
+            await loadAll();
+          } catch (error) {
+            notify(error.message, "error");
+          }
+        });
+      document
+        .getElementById("alertaForm")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
+          try {
+            const raw = document.getElementById("alertaFecha").value;
+            await request("/alertas", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                id_usuario: currentUserId(),
+                tipo_alerta: document.getElementById("alertaTipo").value.trim(),
+                fecha_alerta: raw ? raw.replace("T", " ") : null,
+              }),
+            });
+            event.target.reset();
+            notify("Alerta guardada");
+            await loadAll();
+          } catch (error) {
+            notify(error.message, "error");
+          }
+        });
+      document
+        .getElementById("loteForm")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
+          try {
+            const body = {
+              id_usuario: currentUserId(),
+              id_medicamento: Number(
+                document.getElementById("loteMedicamento").value,
+              ),
+              numero_lote: document.getElementById("loteNumero").value.trim(),
+              cantidad_inicial: Number(
+                document.getElementById("loteCantidad").value,
+              ),
+              ubicacion: document.getElementById("loteUbicacion").value.trim(),
+              fecha_ingreso: document.getElementById("loteIngreso").value,
+              fecha_caducidad: document.getElementById("loteCaducidad").value,
+            };
+            const wasEditing = Boolean(editingLoteId);
+            const method = wasEditing ? "PUT" : "POST";
+            const endpoint = wasEditing ? "/lotes/" + editingLoteId : "/lotes";
+            await request(endpoint, {
+              method,
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(body),
+            });
+            resetLoteEditor();
+            notify(
+              wasEditing
+                ? "Lote actualizado correctamente"
+                : "Entrada física registrada y ordenada por FEFO",
+            );
+            await loadAll();
+          } catch (error) {
+            notify(error.message, "error");
+          }
+        });
+      function editarLote(id) {
+        const lote = state.lotes.find(
+          (item) => Number(item.id_lote) === Number(id),
+        );
+        if (!lote) return;
+        editingLoteId = id;
+        document.getElementById("loteMedicamento").value = lote.id_medicamento;
+        document.getElementById("loteNumero").value = lote.numero_lote;
+        document.getElementById("loteCantidad").value = lote.cantidad_inicial;
+        document.getElementById("loteUbicacion").value = lote.ubicacion || "";
+        document.getElementById("loteIngreso").value = String(
+          lote.fecha_ingreso,
+        ).slice(0, 10);
+        document.getElementById("loteCaducidad").value = String(
+          lote.fecha_caducidad,
+        ).slice(0, 10);
+        document.getElementById("loteFormTitle").textContent = "Editar lote";
+        document.getElementById("loteSubmitButton").innerHTML =
+          '<span class="material-symbols-outlined">save</span>Guardar cambios';
+        document.getElementById("loteCancelButton").classList.remove("hidden");
+        document.getElementById("lotes").scrollIntoView({ behavior: "smooth" });
+      }
+      function resetLoteEditor() {
+        editingLoteId = null;
+        document.getElementById("loteForm").reset();
+        document.getElementById("loteFormTitle").textContent =
+          "Registrar entrada de lote";
+        document.getElementById("loteSubmitButton").innerHTML =
+          '<span class="material-symbols-outlined">add_box</span>Registrar entrada física';
+        document.getElementById("loteCancelButton").classList.add("hidden");
+      }
+      document
+        .getElementById("loteCancelButton")
+        .addEventListener("click", resetLoteEditor);
+      document
+        .getElementById("usuarioForm")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
+          try {
+            await request("/usuarios", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                nombre: document.getElementById("usrNombre").value.trim(),
+                email: document.getElementById("usrEmail").value.trim(),
+                password: document.getElementById("usrPassword").value,
+                id_rol: Number(document.getElementById("usrRol").value),
+              }),
+            });
+            event.target.reset();
+            notify("Usuario guardado");
+            await loadAll();
+          } catch (error) {
+            notify(error.message, "error");
+          }
+        });
+      async function desactivarMedicamento(id) {
+        if (
+          !confirm(
+            "¿Marcar este medicamento como inactivo? El registro se conservará para auditoría.",
+          )
+        )
+          return;
+        try {
+          await request("/medicamentos/" + id + "/desactivar", {
+            method: "PATCH",
+          });
+          notify("Medicamento desactivado");
+          await loadAll();
+        } catch (error) {
+          notify(error.message, "error");
+        }
+      }
+      async function desactivarUsuario(id) {
+        if (
+          !confirm(
+            "¿Desactivar este usuario? El registro no se borrará de la base de datos.",
+          )
+        )
+          return;
+        try {
+          await request("/usuarios/" + id + "/desactivar", { method: "PATCH" });
+          notify("Usuario desactivado");
+          await loadAll();
+        } catch (error) {
+          notify(error.message, "error");
+        }
+      }
+      async function desactivarLote(id) {
+        if (
+          !confirm(
+            "¿Desactivar este lote? Se conservará el historial de entrada.",
+          )
+        )
+          return;
+        try {
+          await request("/lotes/" + id + "/desactivar", { method: "PATCH" });
+          notify("Lote desactivado");
+          await loadAll();
+        } catch (error) {
+          notify(error.message, "error");
+        }
+      }
+      window.desactivarMedicamento = desactivarMedicamento;
+      window.desactivarUsuario = desactivarUsuario;
+      window.desactivarLote = desactivarLote;
+      window.editarLote = editarLote;
+      window.showSection = showSection;
+      window.addEventListener("DOMContentLoaded", () => {
+        if (!currentUser) {
+          window.location.href = "login.html";
+          return;
+        }
+        const name = currentUser.nombre || "Usuario";
+        document.getElementById("topUser").textContent = name;
+        document.getElementById("sideUser").textContent = name;
+        document.getElementById("avatar").textContent = name
+          .charAt(0)
+          .toUpperCase();
+        loadAll();
+      });
+    </script>
+  </body>
+</html>

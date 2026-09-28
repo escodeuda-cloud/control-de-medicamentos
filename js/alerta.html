@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vigilancia Sanitaria - Alertas</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#001c39",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#a4c9ff",
+                        "surface-tint": "#2a609d",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e1e3e4",
+                        "secondary-fixed-dim": "#66df75",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#004d64",
+                        "on-tertiary-fixed": "#001f2a",
+                        "on-tertiary-fixed-variant": "#004d64",
+                        "outline-variant": "#c2c6d1",
+                        "surface-dim": "#d9dadb",
+                        "on-error": "#ffffff",
+                        "tertiary": "#003546",
+                        "on-surface": "#191c1d",
+                        "on-primary": "#ffffff",
+                        "primary": "#00315e",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f8f9fa",
+                        "on-secondary-container": "#007327",
+                        "surface-container-high": "#e7e8e9",
+                        "primary-fixed": "#d4e3ff",
+                        "on-secondary-fixed-variant": "#00531a",
+                        "surface": "#f8f9fa",
+                        "on-primary-fixed-variant": "#004883",
+                        "tertiary-fixed-dim": "#68d3ff",
+                        "on-tertiary-container": "#32c3f5",
+                        "tertiary-fixed": "#bde9ff",
+                        "outline": "#727781",
+                        "inverse-surface": "#2e3132",
+                        "inverse-on-surface": "#f0f1f2",
+                        "secondary-container": "#80f98b",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f3f4f5",
+                        "on-background": "#191c1d",
+                        "on-primary-container": "#88b8fb",
+                        "primary-fixed-dim": "#a4c9ff",
+                        "on-surface-variant": "#424750",
+                        "on-secondary-fixed": "#002106",
+                        "surface-container": "#edeeef",
+                        "surface-container-highest": "#e1e3e4",
+                        "background": "#f8f9fa",
+                        "error": "#ba1a1a",
+                        "secondary": "#006e25",
+                        "primary-container": "#004884",
+                        "secondary-fixed": "#83fc8e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Public Sans"],
+                        "display": ["Public Sans"],
+                        "body": ["Public Sans"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Public Sans', sans-serif; }
+        .editorial-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#00315e] dark:text-[#f3f4f5]">account_balance</span>
+<h1 class="font-['Public_Sans'] font-bold tracking-tight text-lg text-[#00315e] dark:text-[#f3f4f5]">Vigilancia Sanitaria</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-500">search</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="portrait of a clinical professional in medical attire with clean lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtv-POdxqEa0tR3OYowbp6G6hijJ-0YqTumENWThy6pvwZVa0x21LxcQhKFLNEQsM7PvnfqpKnkaRsqnmWgeLH_CkU1QrzPzD3IqLHzw5_oBpx9iLswspAWiv9EV4kMWnQznYx5BihzStWFB-QgjYKzV8QernTjGWr_2zxSTg6ep1ZaL4IG0pyaXjH0o8AyydhnrzVpBWszWrO9i_3uaa2ZFOU1D8cl7lMn3gLQZfAWH1Vc1OplI7WT6abVEn2l8utJ82YpbgWRo0"/>
+</div>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-7xl mx-auto">
+<!-- Hero Editorial Header -->
+<section class="mb-12">
+<div class="editorial-grid">
+<div class="col-span-12 md:col-span-8">
+<p class="text-secondary font-bold tracking-widest uppercase text-xs mb-2">Estado Nacional</p>
+<h2 class="text-5xl md:text-7xl font-black tracking-tighter text-primary leading-none mb-6">Alertas Sanitarias</h2>
+<p class="text-xl text-on-surface-variant font-light max-w-2xl leading-relaxed">
+                        Centro de monitoreo en tiempo real para la seguridad del paciente. Reportes oficiales emitidos por el INVIMA y autoridades de control farmacéutico.
+                    </p>
+</div>
+<div class="col-span-12 md:col-span-4 flex flex-col justify-end">
+<div class="bg-primary p-6 rounded-xl text-on-primary shadow-lg">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="text-xs font-bold uppercase tracking-widest opacity-70">Nivel de Riesgo</span>
+</div>
+<div class="text-4xl font-black mb-1">ALTO</div>
+<p class="text-sm opacity-80">3 alertas críticas activas requiriendo acción inmediata en red hospitalaria.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Filters & Summary Cards (Bento Style) -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-12">
+<div class="bg-surface-container-low p-5 rounded-xl flex flex-col justify-between">
+<span class="text-xs font-bold text-outline uppercase tracking-wider">Críticos</span>
+<span class="text-3xl font-bold text-error">03</span>
+</div>
+<div class="bg-surface-container-low p-5 rounded-xl flex flex-col justify-between">
+<span class="text-xs font-bold text-outline uppercase tracking-wider">Preventivos</span>
+<span class="text-3xl font-bold text-primary">12</span>
+</div>
+<div class="bg-surface-container-low p-5 rounded-xl flex flex-col justify-between">
+<span class="text-xs font-bold text-outline uppercase tracking-wider">Informativos</span>
+<span class="text-3xl font-bold text-secondary">45</span>
+</div>
+<div class="bg-surface-container-highest p-5 rounded-xl flex items-center justify-between group cursor-pointer hover:bg-primary transition-colors">
+<span class="text-sm font-bold group-hover:text-white transition-colors">Filtrar por Departamento</span>
+<span class="material-symbols-outlined group-hover:text-white">filter_list</span>
+</div>
+</section>
+<!-- Main Alerts Feed -->
+<section class="space-y-6">
+<!-- Critical Alert Card (Asymmetric) -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden flex flex-col md:flex-row shadow-sm transition-transform hover:scale-[1.01]">
+<div class="md:w-2 bg-error"></div>
+<div class="p-8 flex-1 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2">
+<div class="flex items-center gap-3 mb-4">
+<span class="bg-error-container text-on-error-container px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter">Crítico</span>
+<span class="text-outline text-xs font-medium">Emitido: 12 Oct 2023 | 08:45 AM</span>
+</div>
+<h3 class="text-2xl font-bold tracking-tight text-primary mb-3">Alerta de Falsificación: Acetaminofén 500mg (Lote 22B14)</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6">
+                            INVIMA informa la detección de unidades falsificadas del producto. El empaque presenta tipografía inconsistente y ausencia de holograma de seguridad en la pestaña lateral.
+                        </p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-container text-on-surface-variant px-3 py-1 rounded text-xs font-bold">Lote: 22B14</span>
+<span class="bg-surface-container text-on-surface-variant px-3 py-1 rounded text-xs font-bold">INVIMA-2023-AL-042</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-center items-center text-center">
+<span class="material-symbols-outlined text-error text-4xl mb-3">gavel</span>
+<p class="text-xs font-bold uppercase tracking-widest text-outline mb-4">Acción Requerida</p>
+<button onclick="showAlert('Directiva emitida y notificada a los hospitales.', 'success')" class="w-full bg-primary text-on-primary py-3 rounded-lg font-bold text-sm hover:opacity-90 transition-opacity active:scale-95">
+                            Emitir Directiva
+                        </button>
+<button onclick="showAlert('Descargando detalles técnicos...', 'success')" class="w-full mt-2 text-primary text-xs font-bold py-2 border-b border-transparent hover:border-primary transition-all">
+                            Ver Detalles Técnicos
+                        </button>
+</div>
+</div>
+</div>
+<!-- Theft Alert (Preventive) -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden flex flex-col md:flex-row shadow-sm transition-transform hover:scale-[1.01]">
+<div class="md:w-2 bg-primary"></div>
+<div class="p-8 flex-1 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2">
+<div class="flex items-center gap-3 mb-4">
+<span class="bg-primary-fixed text-on-primary-fixed-variant px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter">Preventivo</span>
+<span class="text-outline text-xs font-medium">Emitido: 11 Oct 2023 | 14:20 PM</span>
+</div>
+<h3 class="text-2xl font-bold tracking-tight text-primary mb-3">Reporte de Robo: Cadena de Frío Insulinas</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6">
+                            Sustracción de contenedor refrigerado en la ruta Bogotá-Cali. Los lotes listados no garantizan eficacia terapéutica por ruptura de cadena de frío.
+                        </p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-container text-on-surface-variant px-3 py-1 rounded text-xs font-bold">Región: Suroccidente</span>
+<span class="bg-surface-container text-on-surface-variant px-3 py-1 rounded text-xs font-bold">Seguimiento: Policial</span>
+</div>
+</div>
+<div class="flex flex-col justify-center gap-3">
+<button onclick="window.location.href='lote.html'" class="w-full bg-surface-container-high text-primary py-3 rounded-lg font-bold text-sm hover:bg-primary hover:text-white transition-all">
+                            Consultar Lotes
+                        </button>
+<button onclick="showAlert('Descargando reporte PDF...', 'success')" class="w-full border border-outline-variant py-3 rounded-lg font-bold text-sm text-on-surface-variant hover:bg-surface-container transition-all">
+                            Descargar PDF
+                        </button>
+</div>
+</div>
+</div>
+<!-- Expired Batch (Informative) -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden flex flex-col md:flex-row shadow-sm transition-transform hover:scale-[1.01]">
+<div class="md:w-2 bg-secondary"></div>
+<div class="p-8 flex-1 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-3">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter">Informativo</span>
+<span class="text-outline text-xs font-medium">Emitido: 10 Oct 2023</span>
+</div>
+<h3 class="text-xl font-bold tracking-tight text-primary">Próximo Vencimiento: Lotes de Amoxicilina Suspension</h3>
+<p class="text-on-surface-variant text-sm mt-1">Recordatorio de rotación de inventario para 15 instituciones del distrito.</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-right hidden md:block">
+<p class="text-[10px] font-bold text-outline uppercase tracking-widest">Estado</p>
+<p class="text-secondary font-bold">Bajo Control</p>
+</div>
+<button class="bg-surface-container-low p-3 rounded-full hover:bg-secondary hover:text-white transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Asymmetric Data Visualization Placeholder -->
+<section class="mt-16 mb-12">
+<h4 class="text-sm font-bold uppercase tracking-[0.2em] text-outline mb-8 border-b border-outline-variant pb-2">Distribución de Incidencias</h4>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="space-y-6">
+<div class="flex justify-between items-end">
+<span class="text-xs font-bold text-on-surface">Falsificación</span>
+<span class="text-2xl font-black text-error">18%</span>
+</div>
+<div class="h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-error w-[18%]"></div>
+</div>
+<div class="flex justify-between items-end">
+<span class="text-xs font-bold text-on-surface">Vencimiento</span>
+<span class="text-2xl font-black text-primary">62%</span>
+</div>
+<div class="h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[62%]"></div>
+</div>
+<div class="flex justify-between items-end">
+<span class="text-xs font-bold text-on-surface">Robo / Extravío</span>
+<span class="text-2xl font-black text-secondary">20%</span>
+</div>
+<div class="h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[20%]"></div>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-2xl p-8 relative overflow-hidden group">
+<div class="relative z-10">
+<h5 class="text-2xl font-bold tracking-tight mb-2">Mapa de Calor</h5>
+<p class="text-sm text-on-surface-variant mb-6">Zonas con mayor recurrencia de alertas críticas en las últimas 72 horas.</p>
+<button onclick="showAlert('Cargando mapa interactivo...', 'success')" class="text-primary font-bold text-sm flex items-center gap-2">
+                            Explorar Mapa Interactivo
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="absolute right-0 bottom-0 w-48 h-48 opacity-10 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[180px]">map</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-16 pb-safe px-4 bg-white dark:bg-[#191c1d] border-t border-slate-200/20 shadow-[0_-4px_24px_rgba(0,0,0,0.06)] z-50">
+<a class="flex flex-col items-center justify-center text-[#00315e] dark:text-[#004884] font-bold active:scale-90 transition-transform duration-150" href="alerta.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">notification_important</span>
+<span class="font-['Public_Sans'] text-[11px] font-medium uppercase tracking-wider">Alertas</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:text-[#006e25] transition-all active:scale-90 duration-150" href="lote.html">
+<span class="material-symbols-outlined">medication</span>
+<span class="font-['Public_Sans'] text-[11px] font-medium uppercase tracking-wider">Catálogo</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:text-[#006e25] transition-all active:scale-90 duration-150" href="../verificacion.html">
+<span class="material-symbols-outlined">qr_code_scanner</span>
+<span class="font-['Public_Sans'] text-[11px] font-medium uppercase tracking-wider">Escanear</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:text-[#006e25] transition-all active:scale-90 duration-150" href="../usuario.html">
+<span class="material-symbols-outlined">person</span>
+<span class="font-['Public_Sans'] text-[11px] font-medium uppercase tracking-wider">Perfil</span>
+</a>
+</nav>
+<!-- Modal for alerts -->
+<div id="alertBox" class="hidden fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 text-white font-bold flex items-center gap-2"></div>
+<script src="app.js"></script>
+</body></html>
